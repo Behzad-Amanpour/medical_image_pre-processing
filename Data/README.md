@@ -1,1 +1,1 @@
-# Data Sample for Medical Image Processing
+# Data Samples for Medical Image Processing
