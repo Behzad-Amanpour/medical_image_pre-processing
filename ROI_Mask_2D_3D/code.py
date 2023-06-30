@@ -1,6 +1,6 @@
 """
 Inputs:
-    I have uploaded necessary input images as "image-mask-roi.rar"
+    2D Image and mask samples: https://github.com/Behzad-Amanpour/medical_image_processing/tree/main/Data/DICOM_Single
 """
 
 import numpy as np
