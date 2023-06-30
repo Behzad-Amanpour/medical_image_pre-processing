@@ -1,6 +1,6 @@
 """
 Inputs:
-    You can use "Image.dcm" which I uploaded as a file
+    Sample Image: https://github.com/Behzad-Amanpour/medical_image_processing/blob/main/Data/DICOM_Single/brain.dcm
 """
 
 # Reading a DICOM file ================================== Behzad Amanpour =======================
