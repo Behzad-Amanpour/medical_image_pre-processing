@@ -11,3 +11,5 @@
      - Converting multiple DICOM folders to NIfTI images simultaneously
      
 - There are some software packages for converting DICOM to NIfTI if you do not want to use Python code, such as **dcm2niigui** and **mricron**
+
+- **dcm_nifti_problem.p (MATLAB code):** The header of some DICOM files has some problems that you cannot convert DIOCMs to NIfTI. This MATLAB code may solve this problem. You just need to write the file name (i.e. dcm_nifti_problem) in the MATLAB command window and follow the instructions.
