@@ -43,7 +43,7 @@ def Background_Body_Separation(image, contour_number = -1,  normalization = 'OFF
     masked_image = cv2.drawContours(mask, [max_contour], -1, 255, thickness = thickness)
 
   # Fill_holes
-  masked_image2 = ndimage.binary_fill_holes( masked_image ).astype(int)
+  masked_image = ndimage.binary_fill_holes( masked_image ).astype(int)
 
   if plot == 'ON':
     row, col = 1, 3
@@ -56,8 +56,52 @@ def Background_Body_Separation(image, contour_number = -1,  normalization = 'OFF
     axs[0].set_title('Image')
     axs[1].imshow(image1, cmap='gray')
     axs[1].set_title('Image_uint8')
-    axs[2].imshow(masked_image2, cmap='gray')
+    axs[2].imshow(masked_image, cmap='gray')
     axs[2].set_title('filled mask')
     plt.show()
 
-  return masked_image2
+  return masked_image
+
+
+"""
+Using The Function
+"""
+mask = Background_Body_Separation(Image)
+mask = Background_Body_Separation(Image, thickness = 3)
+mask = Background_Body_Separation(Image, normalization='ON', thickness = 3)
+mask = Background_Body_Separation(Image, contour_number = 1, vmin=1000, vmax=1100)
+mask = Background_Body_Separation(Image, contour_number = 2,  normalization = 'ON',
+                                  limit = 2, thickness = 3, plot = 'OFF',
+                                  vmin = 1000, vmax = 1500 )
+
+
+"""
+Loading Images & Using The Functions
+"""
+
+# PNG, JPG Image ==============
+import cv2
+path ='/content/drive/.../Image.png'
+Image = cv2.imread(path)
+Image = cv2.cvtColor(Image, cv2.COLOR_BGR2GRAY)
+mask = Background_Body_Separation(Image)
+
+# DICOM Image =================
+from pydicom import dcmread
+path ='/content/drive/.../Image.dcm'
+file = dcmread(path)
+Image = file.pixel_array
+mask = Background_Body_Separation(Image)
+
+# NIfTI Image (3D) =================
+import nibabel as nib
+path ='/content/drive/.../Image.nii'
+file = nib.load(path)
+Image_3D = file.get_fdata()
+size = Image_3D.shape
+Mask_3D = Image_3D * 0
+
+for i in range( size[2]):
+  Image = Image_3D[:,:,i]
+  mask = Background_Body_Separation(Image)
+  Mask_3D[:,:,i] = mask
