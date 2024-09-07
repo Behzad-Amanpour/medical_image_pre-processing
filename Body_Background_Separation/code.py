@@ -5,9 +5,11 @@ from scipy import ndimage
 from math import floor
 
 def NormalizeForUINT8_OutlierRemove(image, limit):
-  image = (image - np.mean(image)) / np.std(image) 
+  image = (image - np.mean(image)) / np.std(image) # This is standardization. But since we restrict the values ​​in a range, it would be a kind of normalization
   image[ image >= limit] = limit; image[ image <= -1*limit] = -1*limit
-  return (image + limit) * floor(255/(2*limit))
+  image = image + limit
+  image = image - np.min(image)
+  return image * floor(255/( np.max(image) ))
 
 
 def Background_Body_Separation(image, contour_number = -1,  normalization = 'OFF',
